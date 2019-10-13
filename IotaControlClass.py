@@ -1,5 +1,6 @@
 from iota import Iota
 import JsonHandlerClass
+import os.path
 
 
 # Class to handle all IOTA related topics
@@ -11,11 +12,10 @@ class IotaCtrl:
         json_handler.configuration()
         self.node_url = json_handler.node_url
         self.seed = json_handler.seed
-        self.index = 0
+        self.last_index = json_handler.last_index
+        self.index = int()
         self.sec_level = json_handler.sec_level
         self.check_sum = json_handler.check_sum
-        # self.new_address = str()
-        # self.spent = self.spent
 
     # generate new address, check if it was spent from
     def generate_new_address(self):
@@ -31,9 +31,13 @@ class IotaCtrl:
         self.spent = api.were_addresses_spent_from(self.address_to_check)
         self.spent = self.spent['states'][0]
 
-        # update index for the next address
-        # self.last_index = self.index
-        # self.new_index = self.index + 1
-        # self.index = self.new_index
+        print('This is generated: ', self.index, self.new_address)
 
-        print(self.index, self.new_address)
+        # check if file exists before writing
+        if os.path.isfile('./usedAddresses.json'):
+            json_handler = JsonHandlerClass.HandleJson()
+            json_handler.write_json()
+        else:
+            pass
+
+        # update index for the next address

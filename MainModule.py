@@ -1,7 +1,8 @@
 import IotaControlClass
 import JsonHandlerClass
 import os.path
-import json
+
+
 
 # load the config file for node settings
 def load_config():
@@ -9,7 +10,7 @@ def load_config():
     json_handler.configuration()
     node_url = json_handler.node_url
     seed = json_handler.seed
-    #print(node_url, seed)
+    # print(node_url, seed)
 
 
 # generate the first address of the seed and check if it was spent from
