@@ -2,22 +2,21 @@ import IotaControlClass
 import JsonHandlerClass
 
 
-class MainCtrl:
-    def __init__(self):
-        pass
-
-    def load_config(self):
-        start_conf = JsonHandlerClass
-        json_handler = start_conf.HandleJson()
-        json_handler.configuration()
-
-    def new_address(self):
-        new_add = IotaControlClass.IotaCtrl()
-        get_add = new_add.generate_new_address()
+def load_config():
+    json_handler = JsonHandlerClass.HandleJson()
+    json_handler.configuration()
+    node_url = json_handler.node_url
+    seed = json_handler.seed
+    print(node_url, seed)
 
 
+def new_address():
+    iota_ctrl = IotaControlClass.IotaCtrl()
+    iota_ctrl.generate_new_address()
 
-app = MainCtrl
-app.load_config(app)
+
+
+load_config()
+new_address()
 
 
