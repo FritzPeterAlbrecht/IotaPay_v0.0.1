@@ -3,7 +3,6 @@ import JsonHandlerClass
 import os.path
 
 
-
 # load the config file for node settings
 def load_config():
     json_handler = JsonHandlerClass.HandleJson()
@@ -27,6 +26,7 @@ def init_used_addresses():
 
 # check existence of usedAddresses json file. Read if existing, write if not existing
 def file_exists():
+    print('file exists')
     if os.path.isfile('./usedAddresses.json'):
         json_handler = JsonHandlerClass.HandleJson()
         json_handler.last_used_address()

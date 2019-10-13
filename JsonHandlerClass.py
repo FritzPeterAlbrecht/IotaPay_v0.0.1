@@ -5,7 +5,7 @@ import IotaControlClass
 class HandleJson:
     def __init__(self):
         self.last_index = int()
-        self.index = int()
+        self.file_index = int()
 
     # load node config file
     def configuration(self):
@@ -28,7 +28,7 @@ class HandleJson:
         addressData = {'usedAddresses': {}}
         addressData['usedAddresses']['ids'] = []
         addressData['usedAddresses']['ids'].append({
-            "id": self.index,
+            "id": self.file_index,
             "spent": self.spent,
             "address": self.first_address
         })
@@ -43,12 +43,17 @@ class HandleJson:
 
     # get last used address from file
     def last_used_address(self):
+        print('last used')
         with open('./usedAddresses.json', 'r') as f:
             read_file = json.load(f)
             last_used_address = read_file['usedAddresses']['ids'][-1]['address']
-            self.last_index = len(read_file['usedAddresses']['ids']) - 1
+            self.file_index = len(read_file['usedAddresses']['ids'])
 
             print('This was used last: ', self.last_index, last_used_address)
+            print(self.file_index)
+            iota_ctrl = IotaControlClass.IotaCtrl()
+            iota_ctrl.generate_new_address()
+
 
     # write new address to usedAddresses json file
     def write_json(self):
@@ -56,9 +61,12 @@ class HandleJson:
         new_id = iota_ctrl.index
         new_spent = iota_ctrl.spent
         new_address = iota_ctrl.new_address
-        addJson = {'id': new_id, 'spent': new_spent, 'address': new_address}
-        usedAddresses['usedAddresses']['ids'].append(addJson)
-        with open('./usedAddresses.json', 'w') as f:
-            json.dump(usedAddresses, f, indent=2)
-
-        print('This is what we dump: ', new_id, new_spent, new_address)
+        print(new_spent)
+        # with open('./usedAddresses.json', 'r') as r:
+        #     dump_file = json.load(r)
+        # add_to_json = {'id': new_id, 'spent': new_spent, 'address': new_address}
+        # dump_file['usedAddresses']['ids'].append(add_to_json)
+        # with open('./usedAddresses.json', 'w') as f:
+        #     json.dump(dump_file, f, indent=2)
+        #
+        # print('This is what we dump: ', new_id, new_spent, new_address)
