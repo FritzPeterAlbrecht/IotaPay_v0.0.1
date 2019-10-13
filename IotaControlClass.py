@@ -41,12 +41,13 @@ class IotaCtrl:
             pass
 
         if self.spent is True:
+            self.index = self.index + 1
             self.generate_new_address()
+            json_handler = JsonHandlerClass.HandleJson()
+            json_handler.write_json()
         else:
             pass
 
         print('This is generated: ', self.index, self.spent, self.new_address)
 
-        # update index for the next address
-        #self.index = self.index + 1
-        #print(self.index)
+
