@@ -31,4 +31,9 @@ class IotaCtrl:
         self.spent = api.were_addresses_spent_from(self.address_to_check)
         self.spent = self.spent['states'][0]
 
-        print(self.spent)
+        # update index for the next address
+        # self.last_index = self.index
+        # self.new_index = self.index + 1
+        # self.index = self.new_index
+
+        print(self.index, self.new_address)
