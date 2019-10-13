@@ -2,7 +2,10 @@ from iota import Iota
 import JsonHandlerClass
 
 
+# Class to handle all IOTA related topics
 class IotaCtrl:
+
+    # init and set startup vars
     def __init__(self):
         json_handler = JsonHandlerClass.HandleJson()
         json_handler.configuration()
@@ -11,10 +14,21 @@ class IotaCtrl:
         self.index = 0
         self.sec_level = json_handler.sec_level
         self.check_sum = json_handler.check_sum
+        # self.new_address = str()
+        # self.spent = self.spent
 
+    # generate new address, check if it was spent from
     def generate_new_address(self):
-        print('generator running')
         api = Iota(self.node_url, self.seed)
         self.new_address = api.get_new_addresses(index=self.index, count=1, security_level=self.sec_level,
                                                  checksum=self.check_sum)
-        print(self.new_address)
+        self.new_address = self.new_address['addresses'][0]
+
+        # get rid of the checksum to pass to were_addresses_spent_from
+        self.address_to_check = [self.new_address[0:81]]
+
+        # check if this address was spent from
+        self.spent = api.were_addresses_spent_from(self.address_to_check)
+        self.spent = self.spent['states'][0]
+
+        print(self.spent)
