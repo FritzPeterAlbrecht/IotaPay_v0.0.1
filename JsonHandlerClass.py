@@ -19,22 +19,23 @@ class HandleJson:
     # check if the json file usedAddresses is existing. If not get first address and write json file
     def construct_json(self):
         iota_ctrl = IotaControlClass.IotaCtrl()
+        print('generating first address from seed...')
         iota_ctrl.generate_new_address()
         self.first_address = str(iota_ctrl.new_address)
         self.spent = iota_ctrl.spent
 
-        iota_ctrl.index = 0
+        index = 0
 
         addressData = {'usedAddresses': {}}
         addressData['usedAddresses']['ids'] = []
         addressData['usedAddresses']['ids'].append({
-            "id": self.file_index,
+            "id": index,
             "spent": self.spent,
             "address": self.first_address
         })
         with open('./usedAddresses.json', 'w') as f:
             json.dump(addressData, f, indent=2)
-
+        print('file construction initiated and saved!')
         if self.spent is True:
             print('USED! generating new address...')
             iota_ctrl.generate_new_address()
@@ -43,15 +44,17 @@ class HandleJson:
 
     # get last used address from file
     def last_used_address(self):
-        print('last used')
+        print('reading last used...')
         with open('./usedAddresses.json', 'r') as f:
             read_file = json.load(f)
-            last_used_address = read_file['usedAddresses']['ids'][-1]['address']
+            #last_used_address = read_file['usedAddresses']['ids'][-1]['address']
             self.file_index = len(read_file['usedAddresses']['ids'])
-
-            print('This was used last: ', self.last_index, last_used_address)
-            print(self.file_index)
+            print('file index is: ', self.file_index)
             iota_ctrl = IotaControlClass.IotaCtrl()
+            iota_ctrl.index = self.file_index
+
+            #print('This was used last: ', self.last_index, last_used_address)
+            #iota_ctrl = IotaControlClass.IotaCtrl()
             iota_ctrl.generate_new_address()
 
     # write new address to usedAddresses json file
@@ -60,12 +63,12 @@ class HandleJson:
         new_id = iota_ctrl.index
         new_spent = iota_ctrl.spent
         new_address = iota_ctrl.new_address
-        print(new_spent)
-        # with open('./usedAddresses.json', 'r') as r:
-        #     dump_file = json.load(r)
-        # add_to_json = {'id': new_id, 'spent': new_spent, 'address': new_address}
-        # dump_file['usedAddresses']['ids'].append(add_to_json)
-        # with open('./usedAddresses.json', 'w') as f:
-        #     json.dump(dump_file, f, indent=2)
-        #
-        # print('This is what we dump: ', new_id, new_spent, new_address)
+        print('write: ', new_spent)
+        with open('./usedAddresses.json', 'r') as r:
+            dump_file = json.load(r)
+        add_to_json = {'id': new_id, 'spent': new_spent, 'address': new_address}
+        dump_file['usedAddresses']['ids'].append(add_to_json)
+        with open('./usedAddresses.json', 'w') as f:
+            json.dump(dump_file, f, indent=2)
+
+        print('This is what we dump: ', new_id, new_spent, new_address)

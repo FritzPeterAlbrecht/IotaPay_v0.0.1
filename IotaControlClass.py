@@ -20,6 +20,7 @@ class IotaCtrl:
 
     # generate new address, check if it was spent from
     def generate_new_address(self):
+        print('generating address with index: ', self.index)
         api = Iota(self.node_url, self.seed)
         self.new_address = api.get_new_addresses(index=self.index, count=1, security_level=self.sec_level,
                                                  checksum=self.check_sum)
@@ -31,7 +32,6 @@ class IotaCtrl:
         # check if this address was spent from
         self.spent = api.were_addresses_spent_from(self.address_to_check)
         self.spent = self.spent['states'][0]
-        print(self.spent)
 
         # check if file exists before writing
         if os.path.isfile('./usedAddresses.json'):
@@ -45,8 +45,8 @@ class IotaCtrl:
         else:
             pass
 
-        print('This is generated: ', self.index, self.new_address)
+        print('This is generated: ', self.index, self.spent, self.new_address)
 
         # update index for the next address
-        self.index = self.index + 1
-        print(self.index)
+        #self.index = self.index + 1
+        #print(self.index)

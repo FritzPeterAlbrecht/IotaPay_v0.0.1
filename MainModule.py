@@ -19,19 +19,21 @@ def new_address():
 
 
 # if json file usedAddresses is not available, create and write the first address into it
-def init_used_addresses():
-    json_handler = JsonHandlerClass.HandleJson()
-    json_handler.construct_json()
+# def init_used_addresses():
+#     json_handler = JsonHandlerClass.HandleJson()
+#     json_handler.construct_json()
 
 
 # check existence of usedAddresses json file. Read if existing, write if not existing
 def file_exists():
-    print('file exists')
     if os.path.isfile('./usedAddresses.json'):
+        print('file exists')
         json_handler = JsonHandlerClass.HandleJson()
         json_handler.last_used_address()
     else:
-        init_used_addresses()
+        print('file does not exist, initiating...')
+        json_handler = JsonHandlerClass.HandleJson()
+        json_handler.construct_json()
 
 
 # QR code generator
