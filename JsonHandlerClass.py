@@ -54,7 +54,6 @@ class HandleJson:
             iota_ctrl = IotaControlClass.IotaCtrl()
             iota_ctrl.generate_new_address()
 
-
     # write new address to usedAddresses json file
     def write_json(self):
         iota_ctrl = IotaControlClass.IotaCtrl()
