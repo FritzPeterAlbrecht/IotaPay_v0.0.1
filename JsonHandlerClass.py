@@ -6,8 +6,8 @@ class HandleJson:
     def __init__(self):
         pass
 
+    # load node config file
     def configuration(self):
-
         with open('./node_config.json', 'r') as f:
             config_file = json.load(f)
             self.node_url = config_file['Node']
@@ -44,4 +44,20 @@ class HandleJson:
         with open('./usedAddresses.json', 'r') as f:
             read_file = json.load(f)
             last_used_address = read_file['usedAddresses']['ids'][-1]['address']
-            print(last_used_address)
+            last_index = len(read_file['usedAddresses']['ids']) - 1
+
+            print(last_index, last_used_address)
+
+    # write new address to usedAddresses json file
+    def write_json(self):
+        with open('usedAddresses.json', 'r') as r:
+            usedAddresses = json.load(r)
+
+        iota_ctrl = IotaControlClass.IotaCtrl()
+        new_id = iota_ctrl.index
+        new_spent = iota_ctrl.spent
+        new_address = iota_ctrl.new_address
+        addJson = {'id': new_id, 'spent': new_spent, 'address': new_address}
+        usedAddresses['usedAddresses']['ids'].append(addJson)
+        with open('./usedAddresses.json', 'w') as f:
+            json.dump(usedAddresses, f, indent=2)
