@@ -2,11 +2,13 @@ import IotaControlClass
 import JsonHandlerClass
 import os.path
 
+from Configuration import Configuration
+
 
 # load the config file for node settings
 def load_config():
-    json_handler = JsonHandlerClass.HandleJson()
-    json_handler.configuration()
+    #json_handler = JsonHandlerClass.HandleJson()
+    #json_handler.configuration()
     node_url = json_handler.node_url
     seed = json_handler.seed
     # print(node_url, seed)
@@ -42,5 +44,6 @@ def generate_qr():
 
 
 if __name__ == '__main__':
-    load_config()
-    file_exists()
+	c = Configuration("./node_config.json")
+    #load_config()#DEL
+    #file_exists()
