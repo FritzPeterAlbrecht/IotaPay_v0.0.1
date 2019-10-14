@@ -7,14 +7,14 @@ class HandleJson:
         self.last_index = int()
         self.file_index = int()
 
-    # load node config file
-    def configuration(self):
-        with open('./node_config.json', 'r') as f:
-            config_file = json.load(f)
-            self.node_url = config_file['Node']
-            self.seed = config_file['Seed']
-            self.sec_level = config_file['SecurityLevel']
-            self.check_sum = config_file['CheckSum']
+    # # load node config file
+    # def configuration(self):
+        # with open('./node_config.json', 'r') as f:
+            # config_file = json.load(f)
+            # self.node_url = config_file['Node']
+            # self.seed = config_file['Seed']
+            # self.sec_level = config_file['SecurityLevel']
+            # self.check_sum = config_file['CheckSum']
 
     # check if the json file usedAddresses is existing. If not get first address and write json file
     def construct_json(self):

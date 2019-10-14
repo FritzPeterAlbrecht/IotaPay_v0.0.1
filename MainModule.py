@@ -5,15 +5,6 @@ import os.path
 from Configuration import Configuration
 
 
-# load the config file for node settings
-def load_config():
-    #json_handler = JsonHandlerClass.HandleJson()
-    #json_handler.configuration()
-    node_url = json_handler.node_url
-    seed = json_handler.seed
-    # print(node_url, seed)
-
-
 # generate the first address of the seed and check if it was spent from
 def new_address():
     iota_ctrl = IotaControlClass.IotaCtrl()
@@ -45,5 +36,7 @@ def generate_qr():
 
 if __name__ == '__main__':
 	c = Configuration("./node_config.json")
-    #load_config()#DEL
+	#print(c.getSeed()) #uncomment to test config
     #file_exists()
+	
+	##> Benutz doch https://docs.iota.org/docs/node-software/0.1/iri/references/api-reference#wereaddressesspentfrom anstatt eine eigene Lösung aufzuziehen :)
