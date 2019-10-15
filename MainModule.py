@@ -33,8 +33,8 @@ def generate_qr():
 if __name__ == '__main__':
     c = Configuration("./node_config.json")
     file_exists()
-    new_address()
-    generate_qr()
+    #new_address()
+    #generate_qr()
 
 	#print(c.getSeed()) #uncomment to test config
 	##> Benutz doch https://docs.iota.org/docs/node-software/0.1/iri/references/api-reference#wereaddressesspentfrom anstatt eine eigene Lösung aufzuziehen :)
