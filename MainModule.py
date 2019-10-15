@@ -1,6 +1,5 @@
 from IotaControlClass import IotaCtrl
 from JsonHandlerClass import HandleJson
-from QRCodeGen import QRCodeGen
 import os.path
 
 from Configuration import Configuration
@@ -24,16 +23,9 @@ def file_exists():
         jh.construct_json()
 
 
-# QR code generator
-def generate_qr():
-    qr = QRCodeGen()
-    qr.qrCode()
-
-
 if __name__ == '__main__':
     c = Configuration("./node_config.json")
     file_exists()
-    #new_address()
     #generate_qr()
 
 	#print(c.getSeed()) #uncomment to test config

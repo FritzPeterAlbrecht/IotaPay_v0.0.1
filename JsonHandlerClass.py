@@ -1,14 +1,11 @@
 import json
 import IotaControlClass
-
+from QRCodeGen import QRCodeGen
 
 class HandleJson:
 
     def __init__(self):
-
-        self.last_index = int()
-        self.file_index = int()
-        self.last_address = str()
+        pass
 
     # check if the json file usedAddresses is existing. If not get first address and write json file
     def construct_json(self):
@@ -31,10 +28,15 @@ class HandleJson:
         print('file construction initiated and saved!')
 
         if self.spent is True:
+            hj = HandleJson()
+            hj.last_used_address()
             print('USED! generating new address...')
-            ic.generate_new_address()
         else:
             pass
+            # qr_address = self.first_address
+            # print('QR: ', qr_address)
+            # qr = QRCodeGen()
+            # qr.qrCode(qr_address)
 
     # get last used address from file to set index
     def last_used_address(self):
@@ -56,10 +58,17 @@ class HandleJson:
             d = json.load(r)
             self.file_index = len(d['usedAddresses']['ids'])
 
-        add_to_json = {'id': self.file_index, 'spent': spent, 'address': address}
+        add_to_json = {
+            'id': no,
+            'spent': spent,
+            'address': address
+        }
         d['usedAddresses']['ids'].append(add_to_json)
-
         with open('./usedAddresses.json', 'w') as f:
             json.dump(d, f, indent=2)
 
         print('This is what we dump: ', no, spent, address)
+
+        # print('QR: ', address)
+        # qr = QRCodeGen()
+        # qr.qrCode(address)

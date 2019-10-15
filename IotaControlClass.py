@@ -29,9 +29,6 @@ class IotaCtrl:
         # get rid of the checksum to pass to were_addresses_spent_from
         self.address_to_check = [self.new_address[0:81]]
 
-        # get rid of the checksum to pass to were_addresses_spent_from
-        self.address_to_check = [self.new_address[0:81]]
-
         # check if this address was spent from
         sp = api.were_addresses_spent_from(self.address_to_check)
         self.spent = sp['states'][0]
@@ -39,7 +36,7 @@ class IotaCtrl:
 
         no = index
         spent = self.spent
-        address = self.new_address
+        address = str(self.new_address)
 
         # check if file exists before writing
         if os.path.isfile('./usedAddresses.json'):
@@ -48,7 +45,7 @@ class IotaCtrl:
         else:
             pass
 
-        if self.spent is True:
+        if spent is True:
 
             index = index + 1
             IotaCtrl.generate_new_address(self, index)
