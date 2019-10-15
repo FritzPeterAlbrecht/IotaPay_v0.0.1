@@ -10,7 +10,7 @@ class IotaCtrl:
     # init and set startup vars
     def __init__(self):
         c = Configuration()
-        hj = HandleJson()
+        #hj = HandleJson()
         self.node = c.node
         self.seed = c.seed
         self.secLvl = c.secLvl

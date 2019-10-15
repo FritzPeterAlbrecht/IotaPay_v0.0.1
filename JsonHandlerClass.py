@@ -25,9 +25,11 @@ class HandleJson:
             "spent": self.spent,
             "address": self.first_address
         })
+
         with open('./usedAddresses.json', 'w') as f:
             json.dump(addressData, f, indent=2)
         print('file construction initiated and saved!')
+
         if self.spent is True:
             print('USED! generating new address...')
             ic.generate_new_address()
