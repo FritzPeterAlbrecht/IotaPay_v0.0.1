@@ -10,12 +10,10 @@ class IotaCtrl:
     # init and set startup vars
     def __init__(self):
         c = Configuration()
-        #hj = HandleJson()
         self.node = c.node
         self.seed = c.seed
         self.secLvl = c.secLvl
         self.checksum = c.checksum
-        #self.index = hj.file_index
         self.spent = bool
 
     # generate new address, check if it was spent from
