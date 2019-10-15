@@ -5,6 +5,7 @@ import IotaControlClass
 class HandleJson:
 
     def __init__(self):
+
         self.last_index = int()
         self.file_index = int()
         self.last_address = str()
@@ -42,7 +43,7 @@ class HandleJson:
             r = json.load(f)
             self.last_address = str(r["usedAddresses"]["ids"][-1])
             self.file_index = len(r['usedAddresses']['ids'])
-            print('file index is: ', self.file_index)
+            print('file index is: ', self.file_index, self.last_address)
             ic = IotaControlClass.IotaCtrl()
             ic.index = self.file_index
             ic.generate_new_address()

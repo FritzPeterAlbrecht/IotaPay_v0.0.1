@@ -1,6 +1,6 @@
 from iota import Iota
-import Configuration
-import JsonHandlerClass
+from Configuration import Configuration
+from JsonHandlerClass import HandleJson
 import os.path
 
 
@@ -9,24 +9,22 @@ class IotaCtrl:
 
     # init and set startup vars
     def __init__(self):
-        c = Configuration.Configuration()
-        hj = JsonHandlerClass.HandleJson()
-        self.node_url = c.node
+        c = Configuration()
+        hj = HandleJson()
+        self.node = c.node
         self.seed = c.seed
+        self.secLvl = c.secLvl
+        self.checksum = c.checksum
         self.index = hj.file_index
         self.spent = False
         self.new_address = str()
-        self.sec_level = c.secLvl
-        self.check_sum = c.checksum
 
     # generate new address, check if it was spent from
     def generate_new_address(self):
-        c = Configuration.Configuration()
-        hj = JsonHandlerClass.HandleJson()
         print('generating address with index: ', self.index, self.new_address)
-        api = Iota(c.node, c.seed)
-        self.new_address = api.get_new_addresses(index=self.index, count=1, security_level=c.secLvl,
-                                                 checksum=c.checksum)
+        api = Iota(self.node, self.seed)
+        self.new_address = api.get_new_addresses(index=self.index, count=1, security_level=self.secLvl,
+                                                 checksum=self.checksum)
         self.new_address = self.new_address['addresses'][0]
 
         # get rid of the checksum to pass to were_addresses_spent_from
@@ -38,7 +36,7 @@ class IotaCtrl:
 
         # check if file exists before writing
         if os.path.isfile('./usedAddresses.json'):
-            #jh = HandleJson()
+            hj = HandleJson()
             hj.write_json()
         else:
             pass

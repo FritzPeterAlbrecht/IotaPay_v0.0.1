@@ -5,6 +5,16 @@
         "id": 0,
         "spent": false,
         "address": "KYTL9QFL9L9BQIRMKXTWLMBZ9DWKEVLDGYTQTFLRNHHQFCNODF9FARQMPKGEISKKSJGBRXV9DXYICJH99TPBILDIED"
+      },
+      {
+        "id": 1,
+        "spent": false,
+        "address": ""
+      },
+      {
+        "id": 2,
+        "spent": false,
+        "address": ""
       }
     ]
   }

@@ -12,12 +12,6 @@ def new_address():
     ic.generate_new_address()
 
 
-# if json file usedAddresses is not available, create and write the first address into it
-# def init_used_addresses():
-#     json_handler = JsonHandlerClass.HandleJson()
-#     json_handler.construct_json()
-
-
 # check existence of usedAddresses json file. Read if existing, write if not existing
 def file_exists():
     if os.path.isfile('./usedAddresses.json'):
