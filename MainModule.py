@@ -19,6 +19,6 @@ def file_exists():
 if __name__ == '__main__':
     c = Configuration("./node_config.json")
     file_exists()
-    t = Timer.Timer()
+    t = Timer.Timer(3)
     t.timer()
     #print(c.getSeed()) #uncomment to test config

@@ -2,9 +2,9 @@ import time
 
 
 class Timer:
-    def __init__(self):
+    def __init__(self, stop):
 
-        self.stop = 5
+        self.stop = stop
 
     def timer(self):
 
