@@ -32,11 +32,11 @@ class HandleJson:
             hj.last_used_address()
             print('USED! generating new address...')
         else:
-            pass
-            # qr_address = self.first_address
-            # print('QR: ', qr_address)
-            # qr = QRCodeGen()
-            # qr.qrCode(qr_address)
+            address = self.first_address
+            # generate new Qr Code and save to file
+            print('QR: ', address)
+            qr = QRCodeGen()
+            qr.qrCode(address)
 
     # get last used address from file to set index
     def last_used_address(self):
@@ -69,6 +69,7 @@ class HandleJson:
 
         print('This is what we dump: ', no, spent, address)
 
-        # print('QR: ', address)
-        # qr = QRCodeGen()
-        # qr.qrCode(address)
+        # generate new Qr Code and save to file
+        print('QR: ', address)
+        qr = QRCodeGen()
+        qr.qrCode(address)

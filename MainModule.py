@@ -1,14 +1,7 @@
-from IotaControlClass import IotaCtrl
 from JsonHandlerClass import HandleJson
 import os.path
 
 from Configuration import Configuration
-
-
-# generate the first address of the seed and check if it was spent from
-def new_address():
-    ic = IotaCtrl()
-    ic.generate_new_address()
 
 
 # check existence of usedAddresses json file. Read if existing, write if not existing
@@ -26,7 +19,5 @@ def file_exists():
 if __name__ == '__main__':
     c = Configuration("./node_config.json")
     file_exists()
-    #generate_qr()
 
-	#print(c.getSeed()) #uncomment to test config
-	##> Benutz doch https://docs.iota.org/docs/node-software/0.1/iri/references/api-reference#wereaddressesspentfrom anstatt eine eigene Lösung aufzuziehen :)
+    #print(c.getSeed()) #uncomment to test config
