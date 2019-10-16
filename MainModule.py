@@ -1,6 +1,6 @@
 from JsonHandlerClass import HandleJson
 import os.path
-
+import Timer
 from Configuration import Configuration
 
 
@@ -19,5 +19,6 @@ def file_exists():
 if __name__ == '__main__':
     c = Configuration("./node_config.json")
     file_exists()
-
+    t = Timer.Timer()
+    t.timer()
     #print(c.getSeed()) #uncomment to test config
