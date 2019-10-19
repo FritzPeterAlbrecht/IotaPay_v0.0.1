@@ -2,12 +2,13 @@ import json
 
 class Configuration:
 
-	def __init__(self, filename="./node_config.json"):
+	def __init__(self, filename="./config.json"):
 		'''
 			self.node - url to IOTA IRI node
 			self.seed
 			self.secLvl - security level
 			self.checksum - boolean
+			self.uiPath - path for UI specification file
 		'''
 		self.silent = False
 		self.load(filename)
@@ -21,6 +22,7 @@ class Configuration:
 			self.seed = c["Seed"]
 			self.secLvl = c["SecurityLevel"]
 			self.checksum = c["CheckSum"]
+			self.uiPath = c["UiPath"]
 
 	def getNodeUrl(self):
 		return self.node
@@ -34,6 +36,9 @@ class Configuration:
 	def getChecksum(self):
 		return self.checksum
 		
+	def getUiPath(self):
+		return self.uiPath
+		
 	def setNodeUrl(self, n):
 		self.node = n
 		
@@ -45,3 +50,6 @@ class Configuration:
 		
 	def setChecksum(self, c):
 		self.checksum = c
+		
+	def setUiPath(self, p):
+		self.uiPath = p

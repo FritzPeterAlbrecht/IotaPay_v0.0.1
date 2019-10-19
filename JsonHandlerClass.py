@@ -1,5 +1,5 @@
 import json
-import IotaControlClass
+
 from QRCodeGen import QRCodeGen
 
 class HandleJson:

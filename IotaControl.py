@@ -1,20 +1,14 @@
 from iota import Iota
-from Configuration import Configuration
 import JsonHandlerClass
 import os.path
 
 
 # Class to handle all IOTA related topics
-class IotaCtrl:
+class IotaControl:
 
     # init and set startup vars
     def __init__(self):
-        c = Configuration()
-        self.node = c.node
-        self.seed = c.seed
-        self.secLvl = c.secLvl
-        self.checksum = c.checksum
-        self.info = 'Welcome to IotaPay.'
+        pass
 
     # generate new address, check if it was spent from
     def generate_new_address(self, index):
