@@ -1,3 +1,4 @@
+from IotaControlClass import IotaCtrl as IC
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import (Qt, pyqtSignal, QObject)
 from PyQt5.QtGui import QIcon, QPixmap
@@ -30,6 +31,8 @@ class UiIotaPay(QtWidgets.QWidget):
         self.threader = UiThreads()
         self.threader.start()
 
+        self.info = IC.info
+
         self.info_label = self.findChild(QtWidgets.QLabel, 'info_lbl')
         self.lcd_ui = self.findChild(QtWidgets.QLCDNumber, 'lcd_nr')
 
@@ -42,10 +45,16 @@ class UiIotaPay(QtWidgets.QWidget):
 
     # update the UI
     def updateUi(self):
-        self.info_label.setText(IotaPay.info)
+        self.info_label.setText(IC.info)
         print('push Info')
-        self.lcd_ui.display(IotaPay.txValue)
+        self.lcd_ui.display(IC.txValue)
         print('push LCD')
+
+    def start(self):
+        a = QtWidgets.QApplication(sys.argv)
+        app = UiIotaPay()
+        app.show()
+        sys.exit(a.exec())
 
 
 # Thread Class
@@ -56,8 +65,8 @@ class UiThreads(QtCore.QThread):
     def run(self):
 
         while 1:
-            info = IotaPay.info
-            lcd = IotaPay.txValue
+            info = IC.info
+            lcd = IC.txValue
             app._callback.triggerSignal()
             #CallbackObject.signal_info.emit('SIGNAL_INFO')
             #self.updater(self)
@@ -65,8 +74,8 @@ class UiThreads(QtCore.QThread):
             print('threads running', IotaPay.txValue)
             time.sleep(0.5)
 
-
-# a = QtWidgets.QApplication(sys.argv)
-# app = UiIotaPay()
-# app.show()
-# sys.exit(a.exec())
+# def start():
+#     a = QtWidgets.QApplication(sys.argv)
+#     app = UiIotaPay()
+#     app.show()
+#     sys.exit(a.exec())

@@ -18,9 +18,10 @@ def file_exists():
 
 
 if __name__ == '__main__':
-    # w = UiIotaPay()
     c = Configuration("./node_config.json")
+    #UiIotaPay.start()
     file_exists()
+
     # t = Timer.Timer(50) # uncomment to test timer
     # t.timer_load() # uncomment to test timer
     # print(c.getSeed()) # uncomment to test config

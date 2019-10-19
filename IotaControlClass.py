@@ -14,6 +14,7 @@ class IotaCtrl:
         self.seed = c.seed
         self.secLvl = c.secLvl
         self.checksum = c.checksum
+        self.info = 'Welcome to IotaPay.'
 
     # generate new address, check if it was spent from
     def generate_new_address(self, index):
