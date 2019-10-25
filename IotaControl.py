@@ -7,14 +7,17 @@ import os.path
 class IotaControl:
 
     # init and set startup vars
-    def __init__(self):
+    def __init__(self, config):
+		
+	
+		self.api = Iota(config.getNodeUrl(), config.getSeed)
         pass
 
     # generate new address, check if it was spent from
     def generate_new_address(self, index):
 
-        api = Iota(self.node, self.seed)
-        new_add = api.get_new_addresses(index=index, count=1, security_level=self.secLvl,
+        
+        new_add = self.api.get_new_addresses(index=index, count=1, security_level=self.secLvl,
                                         checksum=self.checksum)
 
         print('generating address with index: ', index)
@@ -24,7 +27,7 @@ class IotaControl:
         self.address_to_check = [self.new_address[0:81]]
 
         # check if this address was spent from
-        sp = api.were_addresses_spent_from(self.address_to_check)
+        sp = self.api.were_addresses_spent_from(self.address_to_check)
         self.spent = sp['states'][0]
         print('address has spent before: ', self.spent)
 

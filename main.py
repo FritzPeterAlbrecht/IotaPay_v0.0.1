@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets
 ##> Import own classes!
 from Configuration import Configuration
 from GUI import GUI
+from IotaControl import IotaControl
 
 ##> Run program!
 if __name__ == '__main__':
@@ -15,6 +16,7 @@ if __name__ == '__main__':
 	c = Configuration("./config.json")
 	a = QtWidgets.QApplication(sys.argv)
 	g = GUI(c.getUiPath())
+	ic = IotaControl(c)
 	
 	##> Run!
 	g.show()
