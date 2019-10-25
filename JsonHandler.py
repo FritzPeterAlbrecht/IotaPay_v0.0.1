@@ -1,42 +1,25 @@
 import json
 
-from QRCodeGen import QRCodeGen
 
-class HandleJson:
+class JsonHandler:
 
     def __init__(self):
         pass
 
-    # check if the json file usedAddresses is existing. If not get first address and write json file
-    def construct_json(self):
-        print('generating first address from seed...')
-        ic = IotaControlClass.IotaCtrl()
-        ic.generate_new_address(index=0)
-        self.first_address = str(ic.new_address)
-        self.spent = ic.spent
+    # If not get first address and write json file
+    def construct_json(self, no, spent, address):
 
         addressData = {'usedAddresses': {}}
         addressData['usedAddresses']['ids'] = []
         addressData['usedAddresses']['ids'].append({
-            "id": 0,
-            "spent": self.spent,
-            "address": self.first_address
+            "id": no,
+            "spent": spent,
+            "address": address
         })
 
         with open('./usedAddresses.json', 'w') as f:
             json.dump(addressData, f, indent=2)
         print('file construction initiated and saved!')
-
-        if self.spent is True:
-            hj = HandleJson()
-            hj.last_used_address()
-            print('USED! generating new address...')
-        else:
-            address = self.first_address
-            # generate new Qr Code and save to file
-            print('QR: ', address)
-            qr = QRCodeGen()
-            qr.qrCode(address)
 
     # get last used address from file to set index
     def last_used_address(self):
@@ -45,11 +28,7 @@ class HandleJson:
             r = json.load(f)
             self.last_address = str(r["usedAddresses"]["ids"][-1])
             self.file_index = len(r['usedAddresses']['ids'])
-            index = self.file_index
-            print('file index is: ', self.file_index)
-
-            ic = IotaControlClass.IotaCtrl()
-            ic.generate_new_address(index)
+            self.index = self.file_index
 
     # write new address to usedAddresses json file
     def write_json(self, no, spent, address):
@@ -68,8 +47,3 @@ class HandleJson:
             json.dump(d, f, indent=2)
 
         print('This is what we dump: ', no, spent, address)
-
-        # generate new Qr Code and save to file
-        print('QR: ', address)
-        qr = QRCodeGen()
-        qr.qrCode(address)

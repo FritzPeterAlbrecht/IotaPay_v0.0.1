@@ -8,6 +8,7 @@ from PyQt5 import QtWidgets
 from Configuration import Configuration
 from GUI import GUI
 from IotaControl import IotaControl
+from JsonHandler import JsonHandler
 
 ##> Run program!
 if __name__ == '__main__':
@@ -16,7 +17,9 @@ if __name__ == '__main__':
 	c = Configuration("./config.json")
 	a = QtWidgets.QApplication(sys.argv)
 	g = GUI(c.getUiPath())
-	ic = IotaControl(c)
+	hj = JsonHandler()
+	ic = IotaControl(c, hj, index=0)
+	ic.test_looper(t=5)
 	
 	##> Run!
 	g.show()
