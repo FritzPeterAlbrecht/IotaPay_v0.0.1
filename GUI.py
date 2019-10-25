@@ -36,13 +36,6 @@ class GUI(QtWidgets.QWidget):
 		print('push LCD')
 
 
-	def start(self):
-		a = QtWidgets.QApplication(sys.argv)
-		app = GUI()
-		app.show()
-		sys.exit(a.exec())
-
-
 # Thread Class
 class UiThreads(QtCore.QThread):
 	def __init__(self, callback, parent=None):
@@ -57,17 +50,8 @@ class UiThreads(QtCore.QThread):
 #			self.callback.signal_info.emit('SIGNAL_INFO')
 #			self.updater(self)
 #			IotaPay.txValue = IotaPay.txValue + 1
-			print('threads running')
+			print('thread running')
 			time.sleep(0.5)
-
-# def start():
-#	  a = QtWidgets.QApplication(sys.argv)
-#	  app = UiIotaPay()
-#	  app.show()
-#	  sys.exit(a.exec())
-
-
-
 
 
 # create Signals
