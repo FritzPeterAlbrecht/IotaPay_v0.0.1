@@ -26,7 +26,7 @@ class JsonHandler:
         print('reading last used...')
         with open("./usedAddresses.json", "r") as f:
             r = json.load(f)
-            self.last_address = str(r["usedAddresses"]["ids"][-1])
+            self.last_address = str(r["usedAddresses"]["ids"][-1]['address'])
             self.file_index = len(r['usedAddresses']['ids'])
             self.index = self.file_index
 
