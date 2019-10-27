@@ -1,10 +1,11 @@
 import time
+from GUI import CallbackObject
 
 
 class Timer:
-    def __init__(self, stop, pr):
-        #self.price = pr
-        self.stop = int(stop / pr) # implement in Configuration to set up price iota/second
+    def __init__(self, stop, pr, parent=None):
+        self.call = CallbackObject(parent=parent)
+        self.stop = int(stop / pr)
 
     # timer for the paid time in seconds
     def timer(self):
@@ -16,7 +17,8 @@ class Timer:
                 print('\r' + time_left, end='')
                 time.sleep(1)
                 self.stop -= 1
-                if self.stop <= 0:
+                #self.call.triggerSignal()
+                if self.stop == 0:
                     print('\nout of time!')
                     break
             break
@@ -30,8 +32,9 @@ class Timer:
             while self.start <= self.stop:
                 s = self.start
                 time_set = str(s).zfill(4)
-                time.sleep(0.2)
+                time.sleep(0.1)
                 self.start += 1
+                #self.call.triggerSignal()
                 print('\r' + time_set, end='')
 
             break

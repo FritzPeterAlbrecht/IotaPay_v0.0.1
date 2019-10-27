@@ -9,8 +9,8 @@ class Configuration:
 			self.secLvl - security level
 			self.checksum - boolean
 			self.uiPath - path for UI specification file
-			self.jsonPath - path for saving json file
-			self.price - price in iota for each second of electricity
+			self.jsonPath - path for the "usedAddresses" json file
+			self.price - price in iota for each second of usage/electricity
 		'''
 		self.silent = False
 		self.load(filename)

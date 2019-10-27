@@ -5,5 +5,5 @@
 	"CheckSum": true,
 	"UiPath": "./IotaPayV001.ui",
 	"jsonPath": "./usedAddresses.json",
-	"price": 1
+	"price": 10
 }
