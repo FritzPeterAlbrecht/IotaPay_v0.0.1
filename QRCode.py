@@ -2,14 +2,13 @@ import qrcode
 from PIL import Image
 
 
-class QRCodeGen:
+class QRCode:
 
-    def __init__(self):
-        pass
+    def __init__(self, qradd):
+        self.qradd = qradd
 
     # generate QR Code for the actual address
-    def qrCode(self, address):
-        qraddress = address
+    def qrCode(self):
 
         # generate the QR code
         qr = qrcode.QRCode(
@@ -18,7 +17,7 @@ class QRCodeGen:
             box_size=4,
             border=2,
             )
-        qr.add_data(qraddress)
+        qr.add_data(self.qradd)
         qr.make(fit=True)
         img = qr.make_image()
         img.save('./QRAddress.png')

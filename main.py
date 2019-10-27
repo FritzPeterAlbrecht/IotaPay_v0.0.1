@@ -9,6 +9,7 @@ from Configuration import Configuration
 from GUI import GUI
 from IotaControl import IotaControl
 from JsonHandler import JsonHandler
+from QRCode import QRCode
 from Timer import Timer
 
 ##> Run program!
@@ -17,11 +18,14 @@ if __name__ == '__main__':
 	##> Setup!
 	c = Configuration("./config.json")
 	a = QtWidgets.QApplication(sys.argv)
-	hj = JsonHandler()
+	hj = JsonHandler(c.getJsonPath())
 	ic = IotaControl(c, hj, index=0)
-	t = Timer(600)
+	qr = QRCode(hj.last_used_address())
+	qr.qrCode()
+	t = Timer(500, c.getPrice())
 	g = GUI(c.getUiPath(), hj, t)
-	#ic.test_looper(t=5)
+	#ic.test_looper(t=5) # uncomment for looping address generation and saving
+
 	
 	##> Run!
 	g.show()

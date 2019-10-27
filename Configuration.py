@@ -9,6 +9,8 @@ class Configuration:
 			self.secLvl - security level
 			self.checksum - boolean
 			self.uiPath - path for UI specification file
+			self.jsonPath - path for saving json file
+			self.price - price in iota for each second of electricity
 		'''
 		self.silent = False
 		self.load(filename)
@@ -23,6 +25,8 @@ class Configuration:
 			self.secLvl = c["SecurityLevel"]
 			self.checksum = c["CheckSum"]
 			self.uiPath = c["UiPath"]
+			self.jsonPath = c["jsonPath"]
+			self.price = c["price"]
 
 	def getNodeUrl(self):
 		return self.node
@@ -38,6 +42,12 @@ class Configuration:
 		
 	def getUiPath(self):
 		return self.uiPath
+
+	def getJsonPath(self):
+		return self.jsonPath
+
+	def getPrice(self):
+		return self.price
 		
 	def setNodeUrl(self, n):
 		self.node = n
@@ -53,3 +63,9 @@ class Configuration:
 		
 	def setUiPath(self, p):
 		self.uiPath = p
+
+	def setJsonPath(self, j):
+		self.jsonPath = j
+
+	def setPrice(self, pr):
+		self.price = pr

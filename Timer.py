@@ -2,9 +2,9 @@ import time
 
 
 class Timer:
-    def __init__(self, stop):
-
-        self.stop = int(stop / 10) # implement in Configuration to set up price iota/second
+    def __init__(self, stop, pr):
+        #self.price = pr
+        self.stop = int(stop / pr) # implement in Configuration to set up price iota/second
 
     # timer for the paid time in seconds
     def timer(self):

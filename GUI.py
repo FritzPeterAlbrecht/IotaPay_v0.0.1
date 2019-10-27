@@ -49,7 +49,7 @@ class UiThreads(QtCore.QThread):
 
 	def run(self):
 		while True:
-			self.callback.triggerSignal()
+			self.callback.triggerSignal() # comment/uncomment to push changes to the GUI
 			print('thread running')
 			time.sleep(0.5)
 

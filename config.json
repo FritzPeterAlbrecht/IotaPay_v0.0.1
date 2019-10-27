@@ -3,5 +3,7 @@
 	"Seed": "ANKYPINKYTESTSEED999999999OIADDWK9VMN9IXYWMOHTTGWNBGPOIARINSUWVRL9KZXROVAZZLNJXSD",
 	"SecurityLevel": 2,
 	"CheckSum": true,
-	"UiPath": "./IotaPayV001.ui"
+	"UiPath": "./IotaPayV001.ui",
+	"jsonPath": "./usedAddresses.json",
+	"price": 1
 }

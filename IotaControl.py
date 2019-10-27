@@ -12,20 +12,20 @@ class IotaControl:
         self.api = Iota(config.getNodeUrl(), config.getSeed())
         self.secLvl = config.getSecLvl()
         self.checksum = config.getChecksum()
+        self.jspath = config.getJsonPath()
         self.json = hjson
         self.index = index
 
     # generate new address, check if it was spent from
     def generate_new_address(self):
 
-        if os.path.isfile('./usedAddresses.json'):
-            self.json.last_used_address()
-            self.index = self.json.index
+        if os.path.isfile(self.jspath):
+            self.index = self.json.get_last_index()
         else:
             pass
 
         new_add = self.api.get_new_addresses(index=self.index, count=1, security_level=self.secLvl,
-                                                 checksum=self.checksum)
+                                             checksum=self.checksum)
 
         print('generating address with index: ', self.index)
         self.new_address = str(new_add['addresses'][0])
@@ -51,7 +51,7 @@ class IotaControl:
         spent = self.spent
         address = self.new_address
 
-        if os.path.isfile('./usedAddresses.json'):
+        if os.path.isfile(self.jspath):
             self.json.write_json(no, spent, address)
             self.index += 1
         else:
@@ -66,6 +66,7 @@ class IotaControl:
         else:
             pass
 
+    # just for test looping the generation of new addresses
     def test_looper(self, t):
         while 1:
             self.generate_new_address()
