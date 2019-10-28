@@ -5,7 +5,7 @@ class Configuration:
 	def __init__(self, filename="./config.json"):
 		'''
 			self.node - url to IOTA IRI node
-			self.seed
+			self.seed - IOTA Seed of the device
 			self.secLvl - security level
 			self.checksum - boolean
 			self.uiPath - path for UI specification file

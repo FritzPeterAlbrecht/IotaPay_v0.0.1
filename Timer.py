@@ -4,7 +4,7 @@ import time
 
 class Timer:
     def __init__(self, stop, pr, parent=None):
-        #self.call = CallbackObject(parent=parent)
+        #self.call = CallbackObject(parent=parent) ##> Ein Versuch das updaten des LCD im GUI von außen zu machen
         self.stop = int(stop / pr)
 
     # timer for the paid time in seconds
@@ -17,7 +17,7 @@ class Timer:
                 print('\r' + time_left, end='')
                 time.sleep(1)
                 self.stop -= 1
-                #self.call.triggerSignal()
+                #self.call.triggerSignal() ##> Ein Versuch das updaten des LCD im GUI von außen zu machen
                 if self.stop == 0:
                     print('\nout of time!')
                     break
@@ -34,7 +34,7 @@ class Timer:
                 time_set = str(s).zfill(4)
                 time.sleep(0.1)
                 self.start += 1
-                #self.call.triggerSignal()
+                #self.call.triggerSignal() ##> Ein Versuch das updaten des LCD im GUI von außen zu machen
                 print('\r' + time_set, end='')
 
             break

@@ -10,6 +10,7 @@ from GUI import GUI
 from IotaControl import IotaControl
 from JsonHandler import JsonHandler
 from QRCode import QRCode
+from ZMQ import ZMQ
 from Timer import Timer
 
 ##> Run program!
@@ -22,8 +23,9 @@ if __name__ == '__main__':
 	ic = IotaControl(c, hj, index=0)
 	qr = QRCode(hj.last_used_address())
 	qr.qrCode()
-	t = Timer(100, c.getPrice())
-	g = GUI(c.getUiPath(), hj, t)
+	z = ZMQ(hj.last_used_address())
+	t = Timer(100, c.getPrice()) ##> eigentlich steht hier schon z.listen() um das value als wert an den Timer zu geben
+	g = GUI(c.getUiPath(), hj, t, z)
 
 	#ic.test_looper(t=5) # uncomment for looping address generation and saving
 

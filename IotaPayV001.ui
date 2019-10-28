@@ -173,7 +173,7 @@
     <double>420.000000000000000</double>
    </property>
    <property name="intValue" stdset="0">
-    <number>420</number>
+    <number>0</number>
    </property>
   </widget>
   <widget class="QLabel" name="sec_lbl">

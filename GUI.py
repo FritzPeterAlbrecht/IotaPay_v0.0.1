@@ -7,16 +7,17 @@ import time
 
 class GUI(QtWidgets.QWidget):
 
-	def __init__(self, uiPath, hj, t, parent=None):
+	def __init__(self, uiPath, hj, t, z, parent=None):
 		super(GUI, self).__init__(parent)
 		self.uiPath = uiPath
 		self.callback = CallbackObject(parent=parent)
 		self.json = hj
 		self.timer = t
+		self.zmq = z
 
 		uic.loadUi(self.uiPath, self)  ##> Load UI from spec file!
 
-		self.threader = UiThreads(self.callback, t)
+		self.threader = UiThreads(self.callback, t, z)
 		self.threader.start()
 
 		self.info_label = self.findChild(QtWidgets.QLabel, 'info_lbl')
@@ -45,13 +46,15 @@ class GUI(QtWidgets.QWidget):
 
 # Thread Class
 class UiThreads(QtCore.QThread):
-	def __init__(self, callback, t, parent=None):
+	def __init__(self, callback, t, z, parent=None):
 		super(UiThreads, self).__init__(parent)
 		self.callback = callback
+		self.zmq = z
 
 	def run(self):
 
 		while True:
+			self.zmq.listen()
 			self.callback.triggerSignal() # comment/uncomment to push changes to the GUI
 			time.sleep(0.5)
 
