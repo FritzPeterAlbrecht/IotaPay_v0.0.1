@@ -32,14 +32,14 @@ class GUI(QtWidgets.QWidget):
 		self.json.last_used_address()
 		self.last_used = str(self.json.last_address[0:41] + '\n' + self.json.last_address[
 			42:81] + '\n' + 'CHECKSUM: ' + self.json.last_address[82:91])
-		self.info_label.setText(self.last_used)
 
+		self.info_label.setText(self.last_used)
 		print('push Info')
 
 		# set LCD Display in GUI
 		self.value = self.timer.stop
-		self.lcd_ui.display(str(self.value))
 
+		self.lcd_ui.display(str(self.value))
 		print('push LCD')
 
 
@@ -48,15 +48,12 @@ class UiThreads(QtCore.QThread):
 	def __init__(self, callback, t, parent=None):
 		super(UiThreads, self).__init__(parent)
 		self.callback = callback
-		self.timer = t
 
 	def run(self):
 
-		self.timer.timer_load()
-
 		while True:
 			self.callback.triggerSignal() # comment/uncomment to push changes to the GUI
-			time.sleep(1)
+			time.sleep(0.5)
 
 
 # create Signals
@@ -67,7 +64,7 @@ class CallbackObject(QObject):
 
 	def __init__(self, parent):
 		super().__init__(parent=parent)
-		#self.triggerSignal()
+		self.triggerSignal()
 
 	def triggerSignal(self):
 		self.signal_info.emit('SIGNAL_INFO')

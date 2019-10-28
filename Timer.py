@@ -1,10 +1,10 @@
 import time
-from GUI import CallbackObject
+#from GUI import CallbackObject
 
 
 class Timer:
     def __init__(self, stop, pr, parent=None):
-        self.call = CallbackObject(parent=parent)
+        #self.call = CallbackObject(parent=parent)
         self.stop = int(stop / pr)
 
     # timer for the paid time in seconds
