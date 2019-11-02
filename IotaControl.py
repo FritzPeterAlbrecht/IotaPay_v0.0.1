@@ -22,7 +22,8 @@ class IotaControl:
         if os.path.isfile(self.jspath):
             self.index = self.json.get_last_index()
         else:
-            pass
+            self.index = 0
+            #self.generate_new_address()
 
         new_add = self.api.get_new_addresses(index=self.index, count=1, security_level=self.secLvl,
                                              checksum=self.checksum)

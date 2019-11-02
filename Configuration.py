@@ -11,6 +11,7 @@ class Configuration:
 			self.uiPath - path for UI specification file
 			self.jsonPath - path for the "usedAddresses" json file
 			self.price - price in iota for each second of usage/electricity
+			self.owner - address of the device owner
 		'''
 		self.silent = False
 		self.load(filename)
@@ -27,6 +28,7 @@ class Configuration:
 			self.uiPath = c["UiPath"]
 			self.jsonPath = c["jsonPath"]
 			self.price = c["price"]
+			self.owner = c["Owner"]
 
 	def getNodeUrl(self):
 		return self.node
@@ -48,6 +50,9 @@ class Configuration:
 
 	def getPrice(self):
 		return self.price
+
+	def getOwner(self):
+		return self.owner
 		
 	def setNodeUrl(self, n):
 		self.node = n
@@ -69,3 +74,6 @@ class Configuration:
 
 	def setPrice(self, pr):
 		self.price = pr
+
+	def setOwner(self, o):
+		self.owner = o
