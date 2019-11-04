@@ -20,7 +20,10 @@ class FSend:
         response = self.api.get_inputs(start=0, stop=self.index, security_level=self.secLvl)
         self.value_addresses = response['inputs']
         self.summary = response['totalBalance']
-        self.send_funds()
+        if self.summary == 0:
+            pass
+        else:
+            self.send_funds()
 
     # prepare tx and send funds
     def send_funds(self):
