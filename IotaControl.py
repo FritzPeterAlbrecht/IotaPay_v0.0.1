@@ -1,6 +1,5 @@
 from iota import Iota
 import os.path
-from time import sleep
 
 
 # Class to handle all IOTA related topics
@@ -65,9 +64,3 @@ class IotaControl:
 
         else:
             pass
-
-    # just for test looping the generation of new addresses
-    def test_looper(self, t):
-        while 1:
-            self.generate_new_address()
-            sleep(t)

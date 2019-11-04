@@ -28,8 +28,13 @@
       },
       {
         "id": 5,
-        "spent": false,
+        "spent": true,
         "address": "RDABBKWBVPNLWZBAQ9XQONBRJCOGWB9JFJSJYGGV9H9SRMFHZBR9XUXUXWXDADATJTKJYSYNJDYJWRPCYBXESNV9C9"
+      },
+      {
+        "id": 6,
+        "spent": true,
+        "address": "VBQSNFAJQJOTUPRPMWICJDFTFWVNCJGIGFHKZRZLSYPAUAYUMBMPKJYMPXXB9DSUSZCODQSBOUGUPCVVDLCWTLTTXW"
       }
     ]
   }

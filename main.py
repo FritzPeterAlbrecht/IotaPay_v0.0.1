@@ -22,14 +22,13 @@ if __name__ == '__main__':
 	a = QtWidgets.QApplication(sys.argv)
 	hj = JsonHandler(c.getJsonPath())
 	ic = IotaControl(c, hj, index=0)
-	#ic.test_looper(t=5) # uncomment for looping address generation and saving
 	ic.generate_new_address() # uncomment for startup / or deleted usedAddresses json
 	fs = FSend(c, hj.get_last_index(), c.getJsonPath())
 	#fs.get_value_addresses() ##> zum testen von Fsend
 	qr = QRCode(hj.last_used_address())
 	qr.qrCode()
 	z = ZMQ(hj.last_used_address())
-	t = Timer(100, c.getPrice()) ##> eigentlich steht hier schon z.listen() um das value als wert an den Timer zu geben
+	t = Timer(z.value, c.getPrice()) ##> eigentlich steht hier schon z.listen() um das value als wert an den Timer zu geben
 	g = GUI(c.getUiPath(), hj, t, z)
 
 	##> Run!
