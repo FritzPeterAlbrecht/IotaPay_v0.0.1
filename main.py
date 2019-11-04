@@ -25,7 +25,7 @@ if __name__ == '__main__':
 	#ic.test_looper(t=5) # uncomment for looping address generation and saving
 	ic.generate_new_address() # uncomment for startup / or deleted usedAddresses json
 	fs = FSend(c, hj.get_last_index(), c.getJsonPath())
-	fs.list_addresses() ##> steht hier nur zum testen
+	fs.get_value_addresses() ##> steht hier nur zum testen
 	qr = QRCode(hj.last_used_address())
 	qr.qrCode()
 	z = ZMQ(hj.last_used_address())
