@@ -24,7 +24,7 @@ if __name__ == '__main__':
 	ic = IotaControl(c, hj, index=0)
 	#ic.generate_new_address() # uncomment for startup / or deleted usedAddresses json
 	fs = FSend(c, hj.get_last_index(), c.getJsonPath())
-	#fs.get_value_addresses() ##> zum testen von Fsend
+	#fs.get_value_addresses() ##> zum testen von Fsend - DONT USE IN DEVNET MODE!!!
 	qr = QRCode(hj.last_used_address())
 	qr.qrCode()
 	z = ZMQ(hj.last_used_address())
