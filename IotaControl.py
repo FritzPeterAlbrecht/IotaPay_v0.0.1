@@ -64,3 +64,6 @@ class IotaControl:
 
         else:
             pass
+
+    def get_trytes(self, tx_trytes):
+        self.api.get_trytes(tx_trytes)

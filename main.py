@@ -31,7 +31,7 @@ if __name__ == "__main__":
     qr.qrCode()
     # create new state object
     state = State(last_used_address)
-    z = ZMQ(last_used_address, state)
+    z = ZMQ(last_used_address, state, ic)
     t = Timer(z.value, c.getPrice())
     g = GUI(c.getUiPath(), hj, t, z, state)
 
