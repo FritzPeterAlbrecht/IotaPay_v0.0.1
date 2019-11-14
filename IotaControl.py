@@ -65,5 +65,6 @@ class IotaControl:
         else:
             pass
 
-    def get_trytes(self, tx_trytes):
-        self.api.get_trytes(tx_trytes)
+    def get_tx_object(self, tx_hash):
+        self.api.get_transaction_objects(tx_hash)
+        return

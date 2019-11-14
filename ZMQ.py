@@ -31,7 +31,8 @@ class ZMQ:
             # catch tx for actual address
             if topic == 'tx':
                 if address == self.last_used_address:
-                    print('Topic is:', topic)
+                    self.tx_hash = zmq_response[1]
+                    print(zmq_response)
                     if value != 0:
                         self.state.set_state(1, self.state.states[0])
                         print('Value TX incoming')
@@ -40,16 +41,11 @@ class ZMQ:
 
             # catch confirmation message for actual address
             if topic == 'sn':
-                tx_trytes = zmq_response[2]
-                print(tx_trytes)
-                trytes_response = self.ic.get_trytes(tx_trytes)
-
-                print(trytes_response)
-                # if address == self.last_used_address:
-                #     print('Topic is:', topic)
-                #     if value != 0:
-                #         self.state.set_state(1, self.state.states[1])
-                #         print('CONFIRMED')
+                conf_hash = zmq_response[2]
+                print(zmq_response)
+                if conf_hash == self.tx_hash:
+                    self.state.set_state(1, self.state.states[1])
+                    print('CONFIRMED')
 
         except:
             pass
