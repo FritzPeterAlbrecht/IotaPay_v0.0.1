@@ -6,20 +6,20 @@ import os.path
 class IotaController:
 
     # init and set startup vars
-    def __init__(self, config, hjson):
+    def __init__(self, config, filehandler):
 
         self.api = Iota(config.getNodeUrl(), config.getSeed())
         self.secLvl = config.getSecLvl()
         self.checksum = config.getChecksum()
         self.jspath = config.getJsonPath()
-        self.json = hjson
+        self.filehandler = filehandler
         self.index = 0
 
     # generate new address, check if it was spent from
     def generate_new_address(self):
 
         if os.path.isfile(self.jspath):
-            self.index = self.json.get_last_index() + 1
+            self.index = self.filehandler.get_last_index() + 1
         else:
             self.index = 0
 
@@ -55,9 +55,9 @@ class IotaController:
         address = self.new_address
 
         if os.path.isfile(self.jspath):
-            self.json.write_json(no, spent, address)
+            self.filehandler.write_json(no, spent, address)
         else:
-            self.json.construct_json(no, spent, address)
+            self.filehandler.construct_json(no, spent, address)
 
         if spent is True:
             self.generate_new_address()

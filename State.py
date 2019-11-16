@@ -1,10 +1,12 @@
+# state class for app status
 class State:
-    def __init__(self, config, ic, qr):
-        self.ic = ic
+    def __init__(self, price, filehandler, controller, qr):
+        self.filehandler = filehandler
+        self.controller = controller
         self.qr = qr
 
-        self.last_used_address = self.ic.json.last_used_address()
-        self.price = config.getPrice()
+        self.last_used_address = self.filehandler.last_used_address()
+        self.price = price
 
         self.tx_hash = None
         self.user_credit = 0
@@ -46,8 +48,8 @@ class State:
             self.message = self.message_strings[self.current]
 
     def next_address(self):
-        self.ic.generate_new_address()
-        self.last_used_address = self.ic.json.last_used_address()
+        self.controller.generate_new_address()
+        self.last_used_address = self.filehandler.last_used_address()
         print(self.last_used_address)
 
     def update_qr(self):

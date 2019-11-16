@@ -3,8 +3,8 @@ from PIL import Image
 
 
 class QRCode:
-    def __init__(self):
-        ()
+    def __init__(self, qrPath):
+        self.qr_path = qrPath
 
     # generate QR Code for the actual address
     def qrCode(self, address):
@@ -19,4 +19,4 @@ class QRCode:
         qr.add_data(address)
         qr.make(fit=True)
         img = qr.make_image()
-        img.save("./QRAddress.png")
+        img.save(self.qr_path)

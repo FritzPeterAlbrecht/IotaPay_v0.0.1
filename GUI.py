@@ -1,27 +1,30 @@
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import Qt, pyqtSignal, QObject
 from PyQt5.QtGui import QIcon, QPixmap
-import sys
+#import sys
 import time
 
 
 class GUI(QtWidgets.QWidget):
-    def __init__(self, c, hj, t, z, state, parent=None):
+    def __init__(self, config, filehandler, timer, listener, state, parent=None):
         super(GUI, self).__init__(parent)
-        self.uiPath = c.getUiPath()
-        self.qrPath = c.getQrPath()
+        self.uiPath = config.getUiPath()
+        self.qrPath = config.getQrPath()
         self.pixmap = QPixmap
         self.callback = CallbackObject(parent=parent)
-        self.json = hj
-        self.timer = t
-        self.zmq = z
+        self.json = filehandler
+        self.timer = timer
+        self.listener = listener
         self.state = state
 
-        uic.loadUi(self.uiPath, self)  ##> Load UI from spec file!
+        # load ui file from config
+        uic.loadUi(self.uiPath, self)
 
-        self.threader = UiThreads(self.callback, t, z, state)
+        # make threader instance
+        self.threader = UiThreads(self.callback, timer, listener, state)
         self.threader.start()
 
+        # find the parts of the GUI
         self.info_label = self.findChild(QtWidgets.QLabel, "info_lbl")
         self.lcd_ui = self.findChild(QtWidgets.QLCDNumber, "lcd_nr")
         self.qrcode_label = self.findChild(QtWidgets.QLabel, "qrcode_lbl")
@@ -45,11 +48,11 @@ class GUI(QtWidgets.QWidget):
 
 # Thread Class
 class UiThreads(QtCore.QThread):
-    def __init__(self, callback, t, z, state, parent=None):
+    def __init__(self, callback, timer, listener, state, parent=None):
         super(UiThreads, self).__init__(parent)
         self.callback = callback
-        self.zmq = z
-        self.timer = t
+        self.listener = listener
+        self.timer = timer
         self.state = state
 
     def run(self):
@@ -66,25 +69,28 @@ class UiThreads(QtCore.QThread):
 
             # timer ended
             if self.state.current == 4:
-                # get next address before changin state
+                # get next address before changing state
                 self.state.next_address()
                 self.state.set(0)
 
                 # update qr code
                 self.state.update_qr()
+
             # timer loaded
             if self.state.current == 3:
                 time.sleep(1.0)
                 self.timer.update()
+
             # payment confirmed - load timer
             if self.state.current == 2:
+                time.sleep(0.2)
                 self.timer.setup()
             # tx issued - waiting for confirmation
             if self.state.current == 1:
-                self.zmq.check_confirmation()
+                self.listener.check_confirmation()
             # ready - listening
             if self.state.current == 0:
-                self.zmq.listen()
+                self.listener.listen()
 
 
 # create Signals

@@ -8,8 +8,10 @@ class Timer:
 
     # run up timer depending on amount paid
     def setup(self):
-        self.duration = int(self.state.user_credit / self.state.price)
-        self.state.set(3)
+        self.paid_time = int(self.state.user_credit / self.state.price)
+        self.duration += 1
+        if self.duration == self.paid_time:
+            self.state.set(3)
 
     # timer for the paid time in seconds
     def update(self):
