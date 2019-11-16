@@ -35,5 +35,6 @@ class Timer:
         if self.start == 0:
             self.state.set_state(5)
             print('\nout of time!')
+            time.sleep(2)
             return
 
