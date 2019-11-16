@@ -36,6 +36,6 @@ class Timer:
             self.state.set_state(5)
             print('\nout of time!')
             time.sleep(2)
-            self.ic.generate_new_address()
+            self.ic.generate_new_address()  # this call seems to delay counter going to zero
             return
 
