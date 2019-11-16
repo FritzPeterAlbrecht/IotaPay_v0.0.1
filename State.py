@@ -1,7 +1,7 @@
 class State:
-    def __init__(self, last_used_address):
+    def __init__(self, last_used_address, price):
         self.last_used_address = last_used_address
-        self.last_used_address_compare = self.last_used_address
+        self.price = price
 
         self.tx_hash = None
 
@@ -20,6 +20,7 @@ class State:
             "!!!STARTING TIMER!!!",
             "Device in maintenance, Service will be back in short time",
             "ERROR: Zero value transfer received - try again!",
+            "The service is " + str(self.price) + " iota per second"
         ]
 
         # state prototype (0 - ready, 1 - fetching (waiting for payment), 2 - busy, 5 - error)

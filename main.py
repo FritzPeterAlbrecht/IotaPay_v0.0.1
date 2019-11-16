@@ -27,13 +27,12 @@ if __name__ == "__main__":
     fs = FSend(c, hj.get_last_index(), c.getJsonPath())
     last_used_address = hj.last_used_address()
     # fs.get_value_addresses() ##> zum testen von Fsend - DONT USE IN DEVNET MODE!!!
-    # create new state object
-    state = State(last_used_address)
+    state = State(last_used_address, c.getPrice())
     qr = QRCode(state)
     qr.qrCode()
-    z = ZMQ(state, ic)
+    z = ZMQ(state)
     t = Timer(z.value, c.getPrice())
-    g = GUI(c.getUiPath(), hj, t, z, state)
+    g = GUI(c, hj, t, z, state)
 
     ##> Run!
     g.show()

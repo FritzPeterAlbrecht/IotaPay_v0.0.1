@@ -6,9 +6,11 @@ import time
 
 
 class GUI(QtWidgets.QWidget):
-    def __init__(self, uiPath, hj, t, z, state, parent=None):
+    def __init__(self, c, hj, t, z, state, parent=None):
         super(GUI, self).__init__(parent)
-        self.uiPath = uiPath
+        self.uiPath = c.getUiPath()
+        self.qrPath = c.getQrPath()
+        self.pixmap = QPixmap
         self.callback = CallbackObject(parent=parent)
         self.json = hj
         self.timer = t
@@ -22,21 +24,24 @@ class GUI(QtWidgets.QWidget):
 
         self.info_label = self.findChild(QtWidgets.QLabel, "info_lbl")
         self.lcd_ui = self.findChild(QtWidgets.QLCDNumber, "lcd_nr")
+        self.qrcode_label = self.findChild(QtWidgets.QLabel, "qrcode_lbl")
 
         # create CallbackObject and connect signals to slots
         self.callback.signal_info.connect(self.updateUi)
         self.callback.signal_lcd.connect(self.updateUi)
+        self.callback.signal_qrcode.connect(self.updateUi)
 
     # update the UI
     def updateUi(self):
         # set Info Label in GUI
         self.info_label.setText(self.state.message)
-        # print("push Info")
 
         # set LCD Display in GUI
-        self.value = self.timer.stop
+        self.value = self.timer.start
         self.lcd_ui.display(str(self.value))
-        # print("push LCD")
+
+        # set qr code picture to label
+        self.qrcode_label.setPixmap(self.pixmap(self.qrPath))
 
 
 # Thread Class
@@ -45,6 +50,7 @@ class UiThreads(QtCore.QThread):
         super(UiThreads, self).__init__(parent)
         self.callback = callback
         self.zmq = z
+        self.timer = t
         self.state = state
 
     def run(self):
@@ -55,18 +61,17 @@ class UiThreads(QtCore.QThread):
 
         while True:
             self.callback.signal_info.emit("SIGNAL_INFO")
-            # print("Info Triggered!")
             self.callback.signal_lcd.emit("SIGNAL_LCD")
-
-            # ready - listeing
+            self.callback.signal_qrcode.emit("SIGNAL_QR_CODE")
+            # ready - listening
             if self.state.current == 0:
                 self.zmq.listen()
-            # tx issued - waiting for confirmaton
+            # tx issued - waiting for confirmation
             if self.state.current == 1:
                 self.zmq.check_confirmation()
-            # paymend confirmed - busy/working
+            # payment confirmed - busy/working
             if self.state.current == 2:
-                time.sleep(1.0)
+                self.timer.timer_load(self.zmq.value)
                 print("Im busy")
 
 
@@ -75,6 +80,7 @@ class CallbackObject(QObject):
 
     signal_info = pyqtSignal(str, name="SIGNAL_INFO")
     signal_lcd = pyqtSignal(int, name="SIGNAL_LCD")
+    signal_qrcode = pyqtSignal(int, name="SIGNAL_QR_CODE")
 
     def __init__(self, parent):
         super().__init__(parent=parent)

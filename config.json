@@ -5,6 +5,7 @@
 	"CheckSum": true,
 	"UiPath": "./IotaPayV001.ui",
 	"jsonPath": "./usedAddresses.json",
+	"qrCodePath": "./QRAddress.png",
 	"price": 1,
 	"Owner": "IQMJKVHPAGIFMKBXRLVEOB9TKVOSBAO9YMGRZ9DSNDUTFZAJTFECVXECMBYEDEJVGHIQKRIUFQSZKBWZXN9KDQDVJ9"
 }

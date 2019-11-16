@@ -64,7 +64,3 @@ class IotaControl:
 
         else:
             pass
-
-    def get_tx_object(self, tx_hash):
-        self.api.get_transaction_objects(tx_hash)
-        return

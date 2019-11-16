@@ -3,7 +3,7 @@ import zmq
 
 
 class ZMQ:
-    def __init__(self, state, ic):
+    def __init__(self, state):
         # > Init ZMQ!
         self.last_used_address = state.last_used_address[0:81]
         self.ZMQContext = zmq.Context()
@@ -11,8 +11,6 @@ class ZMQ:
         self.ZMQSocket.connect("tcp://zmq.devnet.iota.org:5556")
         self.ZMQSocket.setsockopt_string(zmq.SUBSCRIBE, "tx")
         self.ZMQSocket.setsockopt_string(zmq.SUBSCRIBE, "sn")
-
-        self.ic = ic
 
         self.value = 0
         self.state = state
@@ -28,11 +26,11 @@ class ZMQ:
             # catch tx for actual address
             if event == "tx":
                 if address == self.last_used_address:
+                    self.value = value
                     self.state.tx_hash = zmq_response[1]
-                    print(zmq_response)
-                    if value != 0:
+                    if self.value != 0:
                         self.state.set_state(1)
-                        print("Value TX incoming")
+                        print('Value TX incoming: ' + str(self.value) + ' iota')
                     else:
                         self.state.set_state(6)
 

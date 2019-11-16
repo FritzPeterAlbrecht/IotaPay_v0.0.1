@@ -10,6 +10,7 @@ class Configuration:
 			self.checksum - boolean
 			self.uiPath - path for UI specification file
 			self.jsonPath - path for the "usedAddresses" json file
+			self.qrPath - path for the qr code png
 			self.price - price in iota for each second of usage/electricity
 			self.owner - address of the device owner
 		'''
@@ -27,6 +28,7 @@ class Configuration:
 			self.checksum = c["CheckSum"]
 			self.uiPath = c["UiPath"]
 			self.jsonPath = c["jsonPath"]
+			self.qrPath = c["qrCodePath"]
 			self.price = c["price"]
 			self.owner = c["Owner"]
 
@@ -48,32 +50,12 @@ class Configuration:
 	def getJsonPath(self):
 		return self.jsonPath
 
+	def getQrPath(self):
+		return self.qrPath
+
 	def getPrice(self):
 		return self.price
 
 	def getOwner(self):
 		return self.owner
-		
-	def setNodeUrl(self, n):
-		self.node = n
-		
-	def setSeed(self, s):
-		self.seed = s
-		
-	def setSecLvl(self, lvl):
-		self.secLvl = lvl
-		
-	def setChecksum(self, c):
-		self.checksum = c
-		
-	def setUiPath(self, p):
-		self.uiPath = p
 
-	def setJsonPath(self, j):
-		self.jsonPath = j
-
-	def setPrice(self, pr):
-		self.price = pr
-
-	def setOwner(self, o):
-		self.owner = o
