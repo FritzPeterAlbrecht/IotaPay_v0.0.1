@@ -31,7 +31,7 @@ if __name__ == "__main__":
     qr = QRCode(state)
     qr.qrCode()
     z = ZMQ(state)
-    t = Timer(z.value, c.getPrice(), state)
+    t = Timer(z.value, c.getPrice(), state, ic)
     g = GUI(c, hj, t, z, state)
 
     ##> Run!

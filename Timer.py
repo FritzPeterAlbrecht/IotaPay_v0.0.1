@@ -2,10 +2,11 @@ import time
 
 
 class Timer:
-    def __init__(self, stop, pr, state):
+    def __init__(self, stop, pr, state, ic):
         self.stop = stop
         self.price = pr
         self.state = state
+        self.ic = ic
         self.start = 0
         self.loaded = False
 
@@ -26,7 +27,6 @@ class Timer:
 
     # timer for the paid time in seconds
     def timer_start(self):
-        #self.state.set_state(4)
         s = self.start
         time_left = str(s).zfill(4)
         print('\r' + time_left, end='')
@@ -36,5 +36,6 @@ class Timer:
             self.state.set_state(5)
             print('\nout of time!')
             time.sleep(2)
+            self.ic.generate_new_address()
             return
 
