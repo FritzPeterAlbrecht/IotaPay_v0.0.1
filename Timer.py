@@ -2,40 +2,17 @@ import time
 
 
 class Timer:
-    def __init__(self, stop, pr, state, ic):
-        self.stop = stop
-        self.price = pr
+    def __init__(self, state):
         self.state = state
-        self.ic = ic
-        self.start = 0
-        self.loaded = False
+        self.duration = 0
 
     # run up timer depending on amount paid
-    def timer_load(self, stop):
-        self.stop = int(stop/self.price)
-        s = self.start
-        time_set = str(s).zfill(4)
-        time.sleep(0.1)
-        self.start += 1
-        print('\r' + time_set, end='')
-        if s == self.stop:
-            time.sleep(1)
-            print('\nSTARTING TIMER')
-            time.sleep(1)
-            self.loaded = True
-            self.state.set_state(4)
+    def setup(self):
+        self.duration = int(self.state.user_credit / self.state.price)
+        self.state.set(3)
 
     # timer for the paid time in seconds
-    def timer_start(self):
-        s = self.start
-        time_left = str(s).zfill(4)
-        print('\r' + time_left, end='')
-        time.sleep(1)
-        self.start -= 1
-        if self.start == 0:
-            self.state.set_state(5)
-            print('\nout of time!')
-            time.sleep(2)
-            self.ic.generate_new_address()  # this call seems to delay counter going to zero
-            return
-
+    def update(self):
+        self.duration -= 1
+        if self.duration == 0:
+            self.state.set(4)

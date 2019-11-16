@@ -3,11 +3,11 @@ from PIL import Image
 
 
 class QRCode:
-    def __init__(self, state):
-        self.address = state.last_used_address
+    def __init__(self):
+        ()
 
     # generate QR Code for the actual address
-    def qrCode(self):
+    def qrCode(self, address):
 
         # generate the QR code
         qr = qrcode.QRCode(
@@ -16,7 +16,7 @@ class QRCode:
             box_size=4,
             border=2,
         )
-        qr.add_data(self.address)
+        qr.add_data(address)
         qr.make(fit=True)
         img = qr.make_image()
         img.save("./QRAddress.png")

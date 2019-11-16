@@ -9,7 +9,7 @@ from Configuration import Configuration
 from FSend import FSend
 from State import State
 from GUI import GUI
-from IotaControl import IotaControl
+from IotaController import IotaController
 from JsonHandler import JsonHandler
 from QRCode import QRCode
 from ZMQ import ZMQ
@@ -22,16 +22,14 @@ if __name__ == "__main__":
     c = Configuration("./config.json")
     a = QtWidgets.QApplication(sys.argv)
     hj = JsonHandler(c.getJsonPath())
-    ic = IotaControl(c, hj, index=0)
+    ic = IotaController(c, hj)
     # ic.generate_new_address()  # uncomment for startup / or deleted usedAddresses json
-    fs = FSend(c, hj.get_last_index(), c.getJsonPath())
-    last_used_address = hj.last_used_address()
+    # fs = FSend(c, hj.get_last_index(), c.getJsonPath())
     # fs.get_value_addresses() ##> zum testen von Fsend - DONT USE IN DEVNET MODE!!!
-    state = State(last_used_address, c.getPrice())
-    qr = QRCode(state)
-    qr.qrCode()
+    qr = QRCode()
+    state = State(c, ic, qr)
     z = ZMQ(state)
-    t = Timer(z.value, c.getPrice(), state, ic)
+    t = Timer(state)
     g = GUI(c, hj, t, z, state)
 
     ##> Run!
