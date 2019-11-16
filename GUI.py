@@ -37,8 +37,7 @@ class GUI(QtWidgets.QWidget):
         self.info_label.setText(self.state.message)
 
         # set LCD Display in GUI
-        self.value = self.timer.start
-        self.lcd_ui.display(str(self.value))
+        self.lcd_ui.display(str(self.timer.duration))
 
         # set qr code picture to label
         self.qrcode_label.setPixmap(self.pixmap(self.qrPath))
@@ -60,28 +59,32 @@ class UiThreads(QtCore.QThread):
         ############################################################
 
         while True:
+
             self.callback.signal_info.emit("SIGNAL_INFO")
             self.callback.signal_lcd.emit("SIGNAL_LCD")
             self.callback.signal_qrcode.emit("SIGNAL_QR_CODE")
-            # ready - listening
-            if self.state.current == 0:
-                self.zmq.listen()
+
+            # timer ended
+            if self.state.current == 4:
+                # get next address before changin state
+                self.state.next_address()
+                self.state.set(0)
+
+                # update qr code
+                self.state.update_qr()
+            # timer loaded
+            if self.state.current == 3:
+                time.sleep(1.0)
+                self.timer.update()
+            # payment confirmed - load timer
+            if self.state.current == 2:
+                self.timer.setup()
             # tx issued - waiting for confirmation
             if self.state.current == 1:
                 self.zmq.check_confirmation()
-            # payment confirmed - load timer
-            if self.state.current == 2:
-                if self.timer.loaded is False:
-                    self.timer.timer_load(self.zmq.value)
-            # timer loaded
-            if self.state.current == 4:
-                self.timer.timer_start()
-            # timer ended
-            if self.state.current == 5:
-                time.sleep(1)
-                self.state.set_state(0)
-
-
+            # ready - listening
+            if self.state.current == 0:
+                self.zmq.listen()
 
 
 # create Signals
