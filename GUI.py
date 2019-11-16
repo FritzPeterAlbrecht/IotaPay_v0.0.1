@@ -71,8 +71,10 @@ class UiThreads(QtCore.QThread):
                 self.zmq.check_confirmation()
             # payment confirmed - busy/working
             if self.state.current == 2:
-                self.timer.timer_load(self.zmq.value)
-                print("Im busy")
+                if self.timer.loaded is False:
+                    self.timer.timer_load(self.zmq.value)
+            if self.state.current == 4:
+                self.timer.timer_start()
 
 
 # create Signals

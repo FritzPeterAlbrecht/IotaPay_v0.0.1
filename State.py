@@ -18,6 +18,7 @@ class State:
             "PAYMENT CONFIRMED",
             "Loading timer...",
             "!!!STARTING TIMER!!!",
+            "Your rented time ended",
             "Device in maintenance, Service will be back in short time",
             "ERROR: Zero value transfer received - try again!",
             "The service is " + str(self.price) + " iota per second"

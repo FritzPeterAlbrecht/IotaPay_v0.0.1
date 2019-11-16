@@ -32,7 +32,7 @@ class ZMQ:
                         self.state.set_state(1)
                         print('Value TX incoming: ' + str(self.value) + ' iota')
                     else:
-                        self.state.set_state(6)
+                        self.state.set_state(7)
 
         except:
             pass
